@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/head %>
+    <title>Movies</title>
+  </head>
+  <body>
+    <% include partials/header %>
+    <div class="container">
+      <ul>
+        <% for(var i = 0; i < movies.length; i++) { %>
+          <li><h3><%= movies[i].title %></h3>
+              <ul>
+                <li><%= movies[i].director %> - <%= movies[i].releaseYear %> - <a href="/api/movies/delete/<%= movies[i]._id %>">delete</a></li>
+              </ul>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </body>
+</html>

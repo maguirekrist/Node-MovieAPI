@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <% include partials/head %>
+    <title>Movie API</title>
+  </head>
+  <body>
+    <% include partials/header %>
+    <div class="container">
+      <div class="col-md-6">
+        <h2>Add a movie!</h2>
+        <br>
+        <form method="POST">
+          Title: <br>
+          <input type="text" name="title"> <br><br>
+          Date: <br>
+          <input type="text" name="date"> <br><br>
+          Director: <br>
+          <input type="text" name="director"> <br><br>
+          Genre: <br>
+          <input type="text" name="genre"> <br><br>
+          <input type="submit" value="Submit" onclick="display()">
+        </form>
+      </div>
+    </div>
+    <script>
+      function display(){
+        alert('Movie added!');
+      }
+    </script>
+  </body>
+</html>
