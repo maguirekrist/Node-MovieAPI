@@ -11,7 +11,7 @@
         <% for(var i = 0; i < movies.length; i++) { %>
           <li><h3><%= movies[i].title %></h3>
               <ul>
-                <li><%= movies[i].director %> - <%= movies[i].releaseYear %> - <a href="/api/movies/delete/<%= movies[i]._id %>">delete</a></li>
+                <li><%= movies[i].director %> - <%= movies[i].releaseYear %>  <% if (user.username == 'admin') { %> - <a href="/api/movies/delete/<%= movies[i]._id %>">delete</a><% } %></li>
               </ul>
           </li>
         <% } %>

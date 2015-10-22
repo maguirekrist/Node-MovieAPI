@@ -11,6 +11,5 @@ var movieSchema = new Schema({
     genre: String
 });
 
-mongoose.connect('mongodb://localhost/movie-api');
 
 module.exports = mongoose.model('Movie', movieSchema); // allows us to access this model outside of this file!

@@ -1,20 +1,52 @@
 var Movie = require('../models/movie');
+var Account = require('../models/account');
+var passport = require('passport');
 var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/movies', function(req, res) {
-  res.render('index', { title: "Movie API" });
+  res.render('index', { title: "Movie API", user: req.user });
+});
+
+// Authentication
+router.get('/movies/register', function(req, res) {
+  res.render('register', { user: req.user, error: null });
+});
+
+router.post('/movies/register', function(req, res) {
+  Account.register(new Account({ username: req.body.username }), req.body.password, function(err, account){
+    if(err) {
+      return res.render('register', { error: "Sorry but that username is already taken!", user: req.user });
+    }
+
+    passport.authenticate('local')(req, res, function(){
+      res.redirect('/api/movies');
+    });
+  });
+});
+
+router.get('/movies/login', function(req, res){
+  res.render('login', { user: req.user });
+});
+
+router.post('/movies/login', passport.authenticate('local'), function(req, res){
+  res.redirect('/api/movies');
+});
+
+router.get('/movies/logout', function(req, res) {
+  req.logout();
+  res.redirect('/api/movies');
 });
 
 router.get('/movies/add', function(req, res){
-  res.render('add');
+  res.render('add', { user: req.user });
 });
 
 router.get('/movies/all', function(req, res){
   Movie.find(function(err, movies) {
     if(err) throw err;
-    res.render('movies', { movies: movies });
+    res.render('movies', { movies: movies, user: req.user });
   });
 });
 

@@ -9,6 +9,7 @@
     <% include partials/header %>
     <div class="container">
       <div class="col-md-6">
+        <% if(user) { %>
         <h2>Add a movie!</h2>
         <br>
         <form method="POST">
@@ -22,6 +23,10 @@
           <input type="text" name="genre"> <br><br>
           <input type="submit" value="Submit" onclick="display()">
         </form>
+        <% } else { %>
+          <h2>Please Login or Register to add movies.</h2>
+          <p><a href="/api/movies/login">Login</a> or <a href="/api/movies/signup">Signup</p>
+        <% } %>
       </div>
     </div>
     <script>
