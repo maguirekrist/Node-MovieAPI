@@ -1,5 +1,5 @@
 # Node-MovieAPI
-### By Maguire K
+#### [Author: Maguire Krist](https://github.com/maguirekrist)
 #### Usage:
   1. npm install
   2. node / npm start
