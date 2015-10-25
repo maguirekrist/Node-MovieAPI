@@ -1,8 +1,16 @@
 var Movie = require('../models/movie');
 var Account = require('../models/account');
 var passport = require('passport');
+var fs = require('fs');
+var multer = require('multer');
+var bodyParser = require('body-parser');
+var path = require('path');
 var express = require('express');
 var router = express.Router();
+
+// Multer setup
+var upload = multer({ dest: './public/uploads/'});
+
 
 /* GET home page. */
 router.get('/movies', function(req, res) {
@@ -60,32 +68,49 @@ router.get('/movies/delete/:id', function(req, res) {
   });
 });
 
-router.post('/movies/add', function(req, res){
-  var title = req.body.title;
-  var date = req.body.date;
-  var director = req.body.director;
-  var genre = req.body.genre;
-  var newMovie = new Movie({
-    title: title,
-    releaseYear: date,
-    director: director,
-    genre: genre
-  });
+router.post('/movies/add', upload.single('userFile'),function(req, res){
+    var title = req.body.title;
+    var date = req.body.date;
+    var director = req.body.director;
+    var genre = req.body.genre;
+    var tempPath = req.file.path.toString();
+    var extName = path.extname(req.file.originalname.toString());
+    var newPath = './public/uploads/'+title.toLowerCase()+'_'+director.toLowerCase()+extName;
+    var filePath = '/uploads/'+title.toLowerCase()+'_'+director.toLowerCase()+extName;
 
-  newMovie.save(function(err){
-    if (err) throw err;
-    console.log('New Movie ' + title + ' added');
-    res.redirect('/api/movies/all');
-  });
+    var newMovie = new Movie({
+
+        title: title,
+
+        releaseYear: date,
+
+        director: director,
+
+        genre: genre,
+
+        movie_link: filePath
+
+    });
+
+    fs.rename(tempPath, newPath, function(err) {
+        if(err) {
+            console.log(err);
+        }
+    });
+
+    newMovie.save(function(err){
+      if (err) { throw err; }
+      console.log('New Movie ' + title + ' added');
+      res.redirect('/api/movies/all');
+    });
 });
 
 router.get('/movies/:id', function(req, res){
-    Movie.find({ _id: req.params.id }, function(err, movie){
-        if (err){
+    Movie.findOne({ _id: req.params.id }, function(err, movie){
+        if (err) {
             return res.send(err);
         }
-
-        res.json(movie);
+        res.render('movie', { movie: movie, user: req.user });
     });
 });
 

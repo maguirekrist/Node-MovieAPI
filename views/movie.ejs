@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include partials/head %>
+    <title>Movies</title>
+</head>
+<body>
+<% include partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <video class="center-block" id="movie-screen" height="450" controls>
+                <source src="<%= movie.movie_link %>">
+            </video>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1><%= movie.title %></h1>
+            <h4>Directed by: <%= movie.director%></h4>
+            <p>Genre: <%= movie.genre %></p>
+            <p>Release date: <%= movie.releaseYear %></p>
+            <% if(user) { %>
+                <% if (user.username == "admin" || user.username == "superuser") { %>
+                    <p>Admin Options: </p>
+                    <ul>
+                        <li><a href="/api/movies/delete/<%= movie._id %>">Delete</a></li>
+                    </ul>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -12,16 +12,17 @@
         <% if(user) { %>
         <h2>Add a movie!</h2>
         <br>
-        <form method="POST">
+        <form id="uploadForm" method="POST" action="/api/movies/add" enctype="multipart/form-data">
           Title: <br>
           <input type="text" name="title"> <br><br>
           Date: <br>
-          <input type="text" name="date"> <br><br>
+          <input type="date" name="date"> <br><br>
           Director: <br>
           <input type="text" name="director"> <br><br>
           Genre: <br>
           <input type="text" name="genre"> <br><br>
-          <input type="submit" value="Submit" onclick="display()">
+          <input type="file" name="userFile" > <br><br>
+          <input type="submit" value="Submit">
         </form>
         <% } else { %>
           <h2>Please Login or Register to add movies.</h2>
@@ -29,10 +30,7 @@
         <% } %>
       </div>
     </div>
-    <script>
-      function display(){
-        alert('Movie added!');
-      }
-    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
   </body>
 </html>

@@ -9,11 +9,9 @@
     <div class="container">
       <ul>
         <% for(var i = 0; i < movies.length; i++) { %>
-          <li><h3><%= movies[i].title %></h3>
               <ul>
-                <li><%= movies[i].director %> - <%= movies[i].releaseYear %>  <% if (user.username == 'admin') { %> - <a href="/api/movies/delete/<%= movies[i]._id %>">delete</a><% } %></li>
+                <li><a href="/api/movies/<%= movies[i]._id %>"><h1><%= movies[i].title %></h1></a></li>
               </ul>
-          </li>
         <% } %>
       </ul>
     </div>

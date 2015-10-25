@@ -6,9 +6,10 @@ var Schema = mongoose.Schema;
 
 var movieSchema = new Schema({
     title: String,
-    releaseYear: String,
+    releaseYear: Date,
     director: String,
-    genre: String
+    genre: String,
+    movie_link: String
 });
 
 
