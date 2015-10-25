@@ -2,6 +2,7 @@
 <html>
 <head>
     <% include partials/head %>
+    <link href="../../stylesheets/video-js.min.css" rel="stylesheet">
     <title>Movies</title>
 </head>
 <body>
@@ -9,8 +10,12 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <video class="center-block" id="movie-screen" height="450" controls>
+            <video class="center-block video-js" id="my-video" height="550" width="850" controls preload="auto" data-setup="{}">
                 <source src="<%= movie.movie_link %>">
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a web browser that
+                    <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                </p>
             </video>
         </div>
     </div>
@@ -32,5 +37,6 @@
         </div>
     </div>
 </div>
+<script src="../../javascript/video.min.js"></script>
 </body>
 </html>
